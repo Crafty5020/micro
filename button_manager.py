@@ -14,8 +14,6 @@ morse_code = {letter: bytearray(vals) for letter, vals in morse_code.items()}
 DIT_MS = int(1200 / wpm)
 DAH_THRESHOLD = DIT_MS * 2
 
-led_blue = Pin(22, Pin.OUT)
-led_yello = Pin(9, Pin.OUT)
 
 def select_ps():
     while True:

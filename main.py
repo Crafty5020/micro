@@ -33,13 +33,13 @@ led_yello.value(0)
 utime.sleep(1)
 
 led.value(0)
-led_blue .value(0)
-led_yello.value(1)
+led_blue.value(1)
+led_yello.value(0)
 
 utime.sleep(1)
 
 led.value(0)
-led_blue.value(1)
+led_blue.value(0)
 led_yello.value(0)
 
 utime.sleep(1)

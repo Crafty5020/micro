@@ -17,7 +17,6 @@ lcd = I2cLcd(i2c, I2C_ADDR, I2C_NUM_ROWS, I2C_NUM_COLS)
 
 lcd.custom_char(0,dit_hex)
 lcd.custom_char(1,dah_hex)
-led_blue = machine.Pin(22, machine.Pin.OUT)
 
 lcd.display_on()
 lcd.backlight_on()
@@ -79,9 +78,9 @@ def show_morse(char):
     char = char.upper()
     morse = morse_code[char]
     for sound in morse:
-        led_blue.value(1)
+        
         utime.sleep(0.1)
-        led_blue.value(0)
+        
         utime.sleep(0.1)
 def init():
     global lcd
