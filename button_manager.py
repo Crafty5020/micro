@@ -3,8 +3,8 @@ import ujson
 from utime import sleep, ticks_ms, ticks_diff
 import buzzer_manager as bum
 
-p1_button = Pin(2, Pin.IN, Pin.PULL_UP)
-p2_button = Pin(10, Pin.IN, Pin.PULL_UP)
+p1_button = Pin(10, Pin.IN, Pin.PULL_UP)
+p2_button = Pin(2, Pin.IN, Pin.PULL_UP)
 wpm = 12
 last_state = {1: 1, 2: 1}     # initial unpressed
 press_time = {1: 0, 2: 0}

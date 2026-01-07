@@ -2,8 +2,8 @@ from machine import Pin
 from utime import sleep, ticks_ms, ticks_diff
 import ujson
 
-p1_buz = Pin(17, Pin.OUT)
-p2_buz = Pin(8, Pin.OUT)
+p1_buz = Pin(8, Pin.OUT)
+p2_buz = Pin(17, Pin.OUT)
 main_buz = Pin(21, Pin.OUT)
 with open("morse_code.json", "r") as f:
     morse_code = ujson.load(f)
