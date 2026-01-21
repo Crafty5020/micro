@@ -3,14 +3,14 @@ import ujson
 from utime import sleep, ticks_ms, ticks_diff
 import buzzer_manager as bum
 
-p1_button = Pin(10, Pin.IN, Pin.PULL_UP)
+p1_button = Pin(20, Pin.IN, Pin.PULL_UP)
 p2_button = Pin(2, Pin.IN, Pin.PULL_UP)
 wpm = 12
 last_state = {1: 1, 2: 1}     # initial unpressed
 press_time = {1: 0, 2: 0}
 with open("morse_code.json", "r") as f:
     morse_code = ujson.load(f)
-morse_code = {letter: bytearray(vals) for letter, vals in morse_code.items()}
+morse_code = {letter: bytearray(vals) for letter, vals in morse_code["letters"].items()}
 DIT_MS = int(1200 / wpm)
 DAH_THRESHOLD = DIT_MS * 2
 
@@ -26,13 +26,12 @@ def ps_go(letter, players):
     p1_morse = bytearray()
     p2_morse = bytearray()
     round_start = ticks_ms()
+    prev_morse = 0
     while True:
-        print(p1_morse)
         p2 = None
         p1 = poll_morse(p1_button, 1)
         if players == 2:
             p2 = poll_morse(p2_button, 2)
-
         if p1 is not None:
             p1_morse.append(p1)
         if p2 is not None and players == 2:
@@ -46,7 +45,6 @@ def ps_go(letter, players):
         if players == 1:
             if p1_morse == morse_code[letter]:
                 return 1
-
         if ticks_diff(ticks_ms(), round_start) / 1000 >= 3:
             return 0
         sleep(0.005)
@@ -55,7 +53,6 @@ def ps_go(letter, players):
           
 
 def poll_morse(button, player):
-
     global last_state
     global press_time
 

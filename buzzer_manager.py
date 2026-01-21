@@ -1,34 +1,36 @@
-from machine import Pin
+from machine import PWM, Pin
 from utime import sleep, ticks_ms, ticks_diff
 import ujson
 
-p1_buz = Pin(8, Pin.OUT)
-p2_buz = Pin(17, Pin.OUT)
-main_buz = Pin(21, Pin.OUT)
+p1_buz = PWM(Pin(28))
+p2_buz = PWM(Pin(8))
+main_buz = PWM(Pin(16))
 with open("morse_code.json", "r") as f:
     morse_code = ujson.load(f)
 wpm = 12
-
+p1_buz.freq(1000)
+p2_buz.freq(1000)
+main_buz.freq(1000)
 
 def buzzMain(letter):
     duration = 0.100
     letter = letter.upper()
 
-    for morse in morse_code[letter]:
+    for morse in morse_code["letters"][letter]:
         if morse == 0:
             duration = 1.2 / wpm
         else:
             duration = (1.2 / wpm) * 3
 
-        main_buz.value(1)
+        main_buz.duty_u16(12000)
         sleep(duration)
-        main_buz.value(0)
+        main_buz.duty_u16(0)
         sleep(1.2 / wpm)
 
 def buzzPlayer(player, pressed):
     if player == 1:
-        p1_buz.value(pressed)
+        p1_buz.duty_u16(12000 if pressed else 0)
     else:
-        p2_buz.value(pressed)
+        p2_buz.duty_u16(12000 if pressed else 0)
 
 
